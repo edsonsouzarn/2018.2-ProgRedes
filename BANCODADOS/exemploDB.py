@@ -25,7 +25,7 @@ def principal():
    else:
        print("Criando banco e tabela...")
        criarBanco()
-	print("Inserindo os Dados"...)
+   print("Inserindo os Dados"...)
    insereAluno(iMatricula, sNome, sEmail)
 
 
@@ -62,7 +62,7 @@ sEmail      = informacoes['email']
 def table_exists(strNomeTabela):
    exists = False
    try:
-      strSQL = "SELECT EXISTS(SELECT relname FROM pg_class WHERE relname='" + strNomeTabela + "')"
+      strSQL = "SELECT EXISTS(SELECT relname FROM pg_class WHERE relname='{0}'".format(strNomeTabela)
       con = psycopg2.connect(strConexaoDBAlunos)
       cur = con.cursor()
       cur.execute(strSQL)
@@ -92,10 +92,10 @@ def criarBanco():
 #---------------------------------------------------------------------
 # Metodo que insere o aluno no banco
 #---------------------------------------------------------------------
-def insereAluno(strMatricula,strNome,strEmail):
+def insereAluno(intMatricula,strNome,strEmail):
    conn = psycopg2.connect(strConexaoDBAlunos)
    cur = conn.cursor()
-   strSQLInsereDados = "INSERT INTO alunos (matricula, nome, email) VALUES ({0}, '{1}', '{2}')".format(strMatricula,strNome,strEmail)
+   strSQLInsereDados = "INSERT INTO alunos (matricula, nome, email) VALUES ({0}, '{1}', '{2}')".format(intMatricula,strNome,strEmail)
    cur.execute(strSQLInsereDados)
    conn.commit()
    conn.close()
